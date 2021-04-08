@@ -8,6 +8,7 @@
     "server": "node server.js",
     "client": "cd client && yarn start",
     "dev": "concurrently \"yarn run server\" \"yarn run client\"",
-    "install": "npm install && cd client && npm install"
+    "clientInstall": "cd client && npm install",
+    "start": "cd client && npm install && npm start"
   }
 }

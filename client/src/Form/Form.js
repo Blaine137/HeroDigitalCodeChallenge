@@ -1,9 +1,10 @@
 import {useState} from 'react';
 import './Form.scss';
-import {Form, FormGroup, FormText, Label, Input, FormFeedback, Col } from 'reactstrap';
+import {Form, FormGroup, FormText, Label, Input, Col } from 'reactstrap';
 
 const HeroForm = () => {
     const [feedback, setFeedback] = useState('');
+    const [requestFeedback, setRequestFeedback] = useState('');
 
     const [firstName, setFirstName] = useState(null);
     const [firstNameError, setFirstNameError] = useState(false);
@@ -19,7 +20,7 @@ const HeroForm = () => {
 
         //sends the data from the form to the endpoint
     let submitForm = e => {
-        e.preventDefault();
+        e.preventDefault(); //prevent browser from reloading
         var formData = {
             firstName,
             lastName,
@@ -30,6 +31,7 @@ const HeroForm = () => {
             alerts,
             other
         };
+        //post request to sever sending the form data
       fetch('http://localhost:3001/submit', {
               method: "POST",
               headers: {
@@ -38,75 +40,54 @@ const HeroForm = () => {
               body: JSON.stringify(formData)
           })
       .then(res => res.json())
-      .then(data => setFeedback(data.message))
+      .then(data => setRequestFeedback(data.message))
       .catch(error => console.log('error: ', error));
       
     };
     
     let validateValues = e => {
-        let firstName = document.forms["heroForm"]["firstName"];
-        let lastName = document.forms["heroForm"]["lastName"];
-        let emailAddress = document.forms["heroForm"]["email"];
-        let organization = document.forms["heroForm"]["organization"];
-        let EuResident = document.forms["heroForm"]["Eu resident"];
         let advances = document.forms["heroForm"]["advances"];
         let alerts = document.forms["heroForm"]["alerts"];
         let other = document.forms["heroForm"]["other"];
 
-        if(
-            firstName.length > 0 && 
-            lastName.length > 0 && 
-            (emailAddress.length > 0 && emailAddress.validity.valid === true) && 
-            organization.length > 0 && 
-            EuResident.value === true &&
-            (advances.checked === true || alerts.checked === true || other.checked === true) 
-        ){
-            setFeedback('');
-        }
-
+            //if a required input is empty show error
         if((e.target.value.length === 0 || e.target.value === 'false') && e.target.required){
-            setFeedback(`${e.target.name} is required`)
-            if(e.target.value.length > 0){
-                setFeedback('')
-            }
+            setFeedback(`${e.target.name} is required`);
+        }else if(e.target.value.length > 0 || (e.target.value === 'yes' || e.target.value === 'no')){
+            setFeedback('')
         }
 
+            //if the target is the select and the value is false show error
         if(e.target.name === "Eu residents" && e.target.value === false){
-            setFeedback(`${e.target.name} is required`)
-            if(e.target.value === true){
-                setFeedback('');
-            }
+            setFeedback(`${e.target.name} is required`);
+        }else if(e.target.value === 'yes' || e.target.value === 'no'){
+            setFeedback('')
         }
      
+            //if none of the checkboxes are checked show error
         if(
-            document.getElementById("advancesCheckbox").checked === false && 
-            document.getElementById("alertCheckbox").checked === false &&  
-            document.getElementById("otherCheckbox").checked === false
+            advances.checked === false && 
+            alerts.checked === false &&  
+            other.checked === false
         ){
             setFeedback('Atleast one communication method is required!');
-            if(
-                document.getElementById("advancesCheckbox").checked === true || 
-                document.getElementById("alertCheckbox").checked === true || 
-                document.getElementById("otherCheckbox").checked === true
-            ){
-                setFeedback('')
-            }
         }
 
     }
-    
-    return ( 
-        <div className="container-fluid p-0 m-0 formContainer" style={{fontFamily: 'open-sans'}}>
-            <div className="row justify-content-center align-items-center" style={{height: '100vh'}}>
-                <div className="col-10">
-                    <Form onSubmit={submitForm} onChange={validateValues} className="form p-4 " action="/submit" name="heroForm">
+
+    let body;
+    if(requestFeedback.length > 0){
+        body = (<p className="text-center">{requestFeedback}</p>)
+    }else{
+        body = (
+            <Form onSubmit={submitForm} onChange={validateValues} className="form p-4 " action="/submit" name="heroForm">
                     <h4 className="text-left font-weight-bold">Sign up for email updates</h4>
                     <FormText className="text-left">*Indicates Required Field</FormText>
-                    <p className="text-center">{feedback}</p>
+                    <p className="text-center text-danger font-weight-bold">{feedback}</p>
                     <FormGroup className="row justify-content-center">
                         <Col sm={6} md={5}>
                             <Label className="text-left pl-0" xs={12} for="firstName">FIRST NAME*</Label>
-                            <Input id="firstName" invalid={firstNameError} name="first name" className="input p-3" onChange={e => setFirstName(e.target.value)} required/>
+                            <Input autoComplete="none" id="firstName" invalid={firstNameError} name="first name" className="input p-3" onChange={e => setFirstName(e.target.value)} required/>
                         </Col>
                         <Col sm={6} md={5}>
                             <Label className="text-left pl-0" xs={12} for="lastName">LAST NAME*</Label>
@@ -126,7 +107,7 @@ const HeroForm = () => {
                     <FormGroup className="row mb-4 justify-content-start" style={{position: 'relative'}} >
                         <Col xs={12} sm={6} md={{size: 4, offset: 1}} lg={3}>
                             <Label for="selectBox" className="text-left pl-0" xs={12}>EU RESIDENT*</Label>
-                            <Input type="select" id="selectBox" className="selectBox" onChange={e => {setEuResident(e.target.value); validateValues(e)}} required name="Eu resident">
+                            <Input type="select" id="selectBox" className="selectBox" onChange={e => setEuResident(e.target.value)} required name="Eu resident">
                                 <option value="false">- SELECT ONE -</option>
                                 <option value="yes">Yes</option>
                                 <option value="no">No</option>
@@ -168,6 +149,14 @@ const HeroForm = () => {
                         </Col>
                     </FormGroup>
                 </Form>
+        )
+    }
+    
+    return ( 
+        <div className="container-fluid p-0 m-0 formContainer" style={{fontFamily: 'open-sans'}}>
+            <div className="row justify-content-center align-items-center" style={{height: '100vh'}}>
+                <div className="col-10">
+                    {body}
                 </div>
             </div>
         </div>

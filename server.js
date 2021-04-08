@@ -25,7 +25,7 @@ app.post('/submit', (req, res) => {
 		res.statusCode = 400;
 		res.send({
 			"status": "error",
-			"message": "Invalid Subscription request. Please try agin."
+			"message": "Invalid Subscription request."
 		});
 	}
 })
