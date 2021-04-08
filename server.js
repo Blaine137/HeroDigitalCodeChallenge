@@ -11,11 +11,32 @@ app.use(cors({
     credentials: true,
 }))
 
-app.get('/submit', (req, res) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.send({data: 'Thank you for submitting the form for Hero Digital!'})
+app.post('/submit', (req, res) => {
+  console.log(req.body)
+  res.setHeader('Content-Type', 'application/json');
+    	/* if required data is not empty and in the body send success else fail */
+	if (req.body.firstName && req.body.lastName && req.body.email && req.body.euResident && (req.body.advances || req.body.alerts || req.body.other)) {
+		res.statusCode = 200;
+		res.send({
+			"status": "success",
+			"message": "Thank You. You are now subscribed."
+		});
+	} else {
+		res.statusCode = 400;
+		res.send({
+			"status": "error",
+			"message": "Invalid Subscription request. Please try agin."
+		});
+	}
 })
+
+app.post('/*', (req, res) => {
+	res.statusCode = 404;
+	res.send({
+		"status": "error",
+		"message": "The endpoint you are looking for dose not exist."
+	});
+});
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
