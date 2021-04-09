@@ -3,11 +3,15 @@ const app = express()
 const port = process.env.PORT || 3001
 const cors = require('cors')
 
+if (process.env.NODE_ENV === "production") {
+	app.use(express.static('client/build'));
+}
+
 app.use(express.json()) //used to parse JSON bodies
 app.use(express.urlencoded({extended: true})); //Parse URL-encoded bodies
 
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'http://localhost:5000 ', // nonbuilt version: http://localhost:3000 
     credentials: true,
 }))
 
@@ -30,11 +34,11 @@ app.post('/submit', (req, res) => {
 	}
 })
 
-app.post('/*', (req, res) => {
+app.all('/*', (req, res) => {
 	res.statusCode = 404;
 	res.send({
 		"status": "error",
-		"message": "The endpoint you are looking for dose not exist."
+		"message": "The endpoint you are looking for does not exist."
 	});
 });
 

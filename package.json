@@ -2,13 +2,14 @@
   "dependencies": {
     "concurrently": "^6.0.1",
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "serve": "^11.3.2"
   },
-    "scripts": {
+  "scripts": {
     "server": "node server.js",
-    "client": "cd client && yarn start",
-    "dev": "concurrently \"yarn run server\" \"yarn run client\"",
-    "clientInstall": "cd client && npm install",
-    "start": "cd client && npm install && npm start"
+    "client": "cd client && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "postinstall": "cd client && npm install",
+    "start": "concurrently \"npm run server\" \"cd client && npm run build && serve -s build\""
   }
 }
