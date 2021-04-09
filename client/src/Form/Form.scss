@@ -4,12 +4,13 @@ $shadow: #a9a9a9;
 $textColor: #404040;
 
 .formContainer{
-    
+    font-family: 'open-sans';
+    .containerRow{
+        height: 100vh;
+    }
 }
 .form{
-    background: url('../assets/texture.png');
-    background-size: 100% 100%;
-    object-fit: cover;
+
     border: 0;
     label{
         color: $textColor;
@@ -21,6 +22,9 @@ $textColor: #404040;
             border: 3px solid $primary;
             box-shadow: 1px 1px 1px 1px $shadow;
         }
+    }
+    .customSelectContainer{
+        position: relative;
     }
     .selectBox{
         width: 100%;
