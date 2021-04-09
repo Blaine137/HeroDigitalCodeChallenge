@@ -100,10 +100,13 @@ const HeroForm = () => {
 
             //checks to make sure the email input is a valid email
         if(e.target.name === "Email"){
+                //if the email is not valid
             if(e.target.validity.valid !== true){
                 setFeedback('Please enter a valid email!')
-            }else if(e.target.validity.valid === true){
-                setEmailInvalid(false)
+                    //if email is valid
+                if(e.target.validity.valid === true){
+                    setEmailInvalid(false)
+                }
             }
         }
      
