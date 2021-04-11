@@ -201,7 +201,7 @@ const HeroForm = () => {
     }
     
     return ( 
-        <div className="container-fluid p-0 m-0 formContainer">
+        <div className="container-fluid p-0 m-0 formContainer d-flex">
             <div className="row justify-content-center align-items-center containerRow">
                 <div className="col-10">
                     {body}

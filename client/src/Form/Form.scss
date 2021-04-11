@@ -5,8 +5,9 @@ $textColor: #404040;
 
 .formContainer{
     font-family: 'open-sans';
+    flex-direction: column;
     .containerRow{
-        height: 100vh;
+        min-height: 100vh;
     }
 }
 .form{
