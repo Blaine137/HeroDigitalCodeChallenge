@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import './Form.scss';
-import {Form, FormGroup, FormText, Label, Input, Col } from 'reactstrap';
+import {Form, FormGroup, FormText, Label, Input, Col, DropdownToggle, DropdownMenu, DropdownItem, InputGroupButtonDropdown } from 'reactstrap';
 
 const HeroForm = () => {
     const [feedback, setFeedback] = useState('');
@@ -12,11 +12,13 @@ const HeroForm = () => {
     const [email, setEmail] = useState(null);
     const [emailInvalid, setEmailInvalid] = useState(false);
 	const [org, setOrg] = useState(null);
-	const [euResident, setEuResident] = useState(null);
+	const [euResident, setEuResident] = useState('- SELECT ONE -');
+    const [dropdownOpen, setDropdownOpen] = useState(false);
 	const [advances, setAdvances] = useState(true);
 	const [alerts, setAlerts] = useState(false);
 	const [other, setOther] = useState(false);
 
+    const toggleDropDown = () => setDropdownOpen(!dropdownOpen); //show/hide the select menu
 
         //sends the data from the form to the endpoint
     let submitForm = e => {
@@ -91,13 +93,6 @@ const HeroForm = () => {
             
         }
 
-            //if the target is the select and the value is false show error
-        if(e.target.name === "Eu residents" && e.target.value === false){
-            setFeedback(`${e.target.name} is required`);
-        }else if(e.target.value === 'yes' || e.target.value === 'no'){
-            setFeedback('')
-        }
-
             //checks to make sure the email input is a valid email
         if(e.target.name === "Email"){
                 //if the email is not valid
@@ -154,13 +149,18 @@ const HeroForm = () => {
                     </FormGroup>
                     <FormGroup className="row mb-4 justify-content-start customSelectContainer" >
                         <Col xs={12} sm={6} md={{size: 4, offset: 1}} lg={3}>
-                            <Label for="selectBox" className="text-left pl-0" xs={12}>EU RESIDENT*</Label>
-                            <Input type="select" id="selectBox" className="selectBox" onChange={e => setEuResident(e.target.value)} required name="Eu resident">
-                                <option value="false">- SELECT ONE -</option>
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
-                            </Input>
-                            <span className="arrow"></span>
+                            <InputGroupButtonDropdown addonType="append" isOpen={dropdownOpen} toggle={toggleDropDown} style={{flexDirection: 'column'}}>
+                                <Label for="Eu residents" className="d-block">EU RESIDENT*</Label>
+                                <DropdownToggle className="selectToggler text-left" id="Eu residents" >
+                                    {euResident}
+                                    <span className="arrow"></span>
+                                </DropdownToggle>
+                                <DropdownMenu className="selectMenu m-0 border-top-0">
+                                    <DropdownItem className="selectItem" onClick={(e) => setEuResident(e.target.value)} value="- SELECT ONE -">- SELECT ONE -</DropdownItem>
+                                    <DropdownItem className="selectItem" onClick={(e) => setEuResident(e.target.value)} value="yes">Yes</DropdownItem>
+                                    <DropdownItem className="selectItem" onClick={(e) => setEuResident(e.target.value)} value="no">No</DropdownItem>
+                                </DropdownMenu>
+                            </InputGroupButtonDropdown>
                         </Col>
                     </FormGroup>
                     <FormGroup className="row justify-content-center">
@@ -202,7 +202,7 @@ const HeroForm = () => {
     
     return ( 
         <div className="container-fluid p-0 m-0 formContainer d-flex">
-            <div className="row justify-content-center align-items-center containerRow">
+            <div className="row justify-content-center align-items-center containerRow" style={{width: '100vw'}}>
                 <div className="col-10">
                     {body}
                 </div>
