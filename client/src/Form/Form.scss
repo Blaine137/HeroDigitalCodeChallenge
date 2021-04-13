@@ -77,6 +77,9 @@ $textColor: #404040;
                 padding: 0 1.5rem 0 1.5rem;
                 height: 2.5rem;
                 color: $textColor;
+                &:last-child{
+                    border-bottom: 0 !important;
+                }
                 &:hover{
                     background-color: rgba($primary, 0.5);
                 }
