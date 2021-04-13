@@ -50,9 +50,9 @@ const HeroForm = () => {
                     },
                     body: JSON.stringify(formData)
                 })
-                .then(res => res.json())
-                .then(data => setRequestFeedback(data.message))
-                .catch(error => console.log('error: ', error));
+                .then(res => res.json()) //sets the content type to json
+                .then(data => setRequestFeedback(data.message)) 
+                .catch(error => setRequestFeedback('The Server is currently down, please try again later.'));
 
             }else{
                 setFeedback('Please fill out required fields!')
@@ -144,7 +144,7 @@ const HeroForm = () => {
                         </Col>
                         <Col sm={6} md={5}>
                             <Label className="pl-0" xs={12} for="organization">ORGANIZATION</Label>
-                            <Input id="organization" className="input p-3" onChange={e => setOrg(e.target.value)} required name="Organization"/>
+                            <Input id="organization" className="input p-3" onChange={e => setOrg(e.target.value)} name="Organization"/>
                         </Col>
                     </FormGroup>
                     <FormGroup className="row mb-4 justify-content-start customSelectContainer" >
