@@ -149,7 +149,7 @@ const HeroForm = () => {
                     </FormGroup>
                     <FormGroup className="row mb-4 justify-content-start customSelectContainer" >
                         <Col xs={12} sm={6} md={{size: 4, offset: 1}} lg={3}>
-                            <InputGroupButtonDropdown addonType="append" isOpen={dropdownOpen} toggle={toggleDropDown} style={{flexDirection: 'column'}}>
+                            <InputGroupButtonDropdown addonType="append" isOpen={dropdownOpen} toggle={toggleDropDown} className="select">
                                 <Label for="Eu residents" className="d-block">EU RESIDENT*</Label>
                                 <DropdownToggle className="selectToggler text-left" id="Eu residents" >
                                     {euResident}
@@ -202,7 +202,7 @@ const HeroForm = () => {
     
     return ( 
         <div className="container-fluid p-0 m-0 formContainer d-flex">
-            <div className="row justify-content-center align-items-center containerRow" style={{width: '100vw'}}>
+            <div className="row justify-content-center align-items-center containerRow">
                 <div className="col-10">
                     {body}
                 </div>
