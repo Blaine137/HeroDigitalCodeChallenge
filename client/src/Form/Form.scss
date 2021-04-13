@@ -4,7 +4,7 @@ $shadow: #a9a9a9;
 $textColor: #404040;
 
 .formContainer{
-    font-family: 'open-sans';
+    
     .containerRow{
         min-height: 100vh;
     }
@@ -21,69 +21,70 @@ $textColor: #404040;
             box-shadow: 0 0 1px 0 $shadow;
         }
     }
+        /*CUSTOM SELECT MENU*/
     .customSelectContainer{
         position: relative;
         flex-direction: column;
-    }
-    .selectToggler{
-        background-color: white;
-        color: $textColor;
-        border: 3px solid $primary !important;
-        padding-right: 2.2rem;
-        width: 168px;
-        box-shadow: none !important;
-        border-radius: .3rem .3rem 0 0;
-        border-color: $primary !important;
-        &:hover, &:active, &:focus{
-            background-color: white !important;
-            color: $textColor !important;
-            border: 3px solid $primary !important;
-            box-shadow: 0 !important;
-        }
-    }
-    .arrow{
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 2rem;
-        height: 100%;
-        pointer-events: none;
-        &::before{
-            content: '';
-            display: block;
-            width: 100%;
-            padding: 1rem;
-            height: 100%;
-            background-image: url('../assets/text-expand-arrow.svg');
-            background-size: .6rem;
-            background-repeat: no-repeat;
-            position: absolute;
-            transform: translate(50%, 25%);
-        }
-        
-    }
-    .selectMenu{
-        padding: 0;
-        border-radius: 0 0 .3rem .3rem;
-        border: 3px solid $primary !important;
-        border-top: 0 !important;
-        box-shadow: 1px 0 1px 0 $primary;
-        min-width: 10rem;
-        .selectItem{
-            border: 3px solid $primary !important;
-            border-left: 0 !important;
-            border-right: 0 !important;
-            padding: 0 1.5rem 0 1.5rem;
-            height: 2.5rem;
+        .selectToggler{
+            background-color: white;
             color: $textColor;
-            &:nth-child(2){
-                border-top: 0 !important;
+            border: 3px solid $primary !important;
+            padding-right: 2.2rem;
+            width: 168px;
+            box-shadow: none !important;
+            border-radius: .3rem .3rem 0 0;
+            border-color: $primary !important;
+            &:hover, &:active, &:focus{
+                background-color: white !important;
+                color: $textColor !important;
+                border: 3px solid $primary !important;
+                box-shadow: 0 !important;
             }
-            &:hover{
-                background-color: rgba($primary, 0.5);
+        }
+        .arrow{
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 2rem;
+            height: 100%;
+            pointer-events: none;
+            &::before{
+                content: '';
+                display: block;
+                width: 100%;
+                padding: 1rem;
+                height: 100%;
+                background-image: url('../assets/text-expand-arrow.svg');
+                background-size: .6rem;
+                background-repeat: no-repeat;
+                position: absolute;
+                transform: translate(50%, 25%);
+            }
+            
+        }
+        .selectMenu{
+            padding: 0;
+            border-radius: 0 0 .3rem .3rem;
+            border: 3px solid $primary !important;
+            border-top: 0 !important;
+            box-shadow: 1px 0 1px 0 $primary;
+            min-width: 10rem;
+            .selectItem{
+                border: 3px solid $primary !important;
+                border-top: 0 !important;
+                border-left: 0 !important;
+                border-right: 0 !important;
+                padding: 0 1.5rem 0 1.5rem;
+                height: 2.5rem;
+                color: $textColor;
+                &:hover{
+                    background-color: rgba($primary, 0.5);
+                }
             }
         }
     }
+
+        /*CUSTOM CHECKBOXES*/
     .checkboxLabel{
         display: inline-block;
         user-select: none;

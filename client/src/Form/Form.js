@@ -124,26 +124,26 @@ const HeroForm = () => {
     }else{
         body = (
             <Form onSubmit={submitForm} onChange={validateValues} className="form p-4 " action="/submit" name="heroForm">
-                    <h4 className="text-left font-weight-bold">Sign up for email updates</h4>
-                    <FormText className="text-left">*Indicates Required Field</FormText>
+                    <h4 className="font-weight-bold">Sign up for email updates</h4>
+                    <FormText>*Indicates Required Field</FormText>
                     <p className="text-center text-danger font-weight-bold">{feedback}</p>
                     <FormGroup className="row justify-content-center">
                         <Col sm={6} md={5}>
-                            <Label className="text-left pl-0" xs={12} for="firstName">FIRST NAME*</Label>
+                            <Label className="pl-0" xs={12} for="firstName">FIRST NAME*</Label>
                             <Input autoComplete="none" id="firstName" invalid={firstNameInvalid} name="First name" className="input p-3" onChange={e => setFirstName(e.target.value)} required/>
                         </Col>
                         <Col sm={6} md={5}>
-                            <Label className="text-left pl-0" xs={12} for="lastName">LAST NAME*</Label>
+                            <Label className="pl-0" xs={12} for="lastName">LAST NAME*</Label>
                             <Input id="lastName" className="input p-3" invalid={lastNameInvalid} onChange={e => setLastName(e.target.value)} required name="Last name"/>
                         </Col>
                     </FormGroup>
                     <FormGroup className="row justify-content-center">
                         <Col sm={6} md={5}>
-                            <Label className="text-left pl-0" xs={12} for="emailAddress">EMAIL ADDRESS*</Label>
+                            <Label className="pl-0" xs={12} for="emailAddress">EMAIL ADDRESS*</Label>
                             <Input id="emailAddress" type="email" className="input p-3" invalid={emailInvalid} onChange={e => setEmail(e.target.value)} required name="Email"/>
                         </Col>
                         <Col sm={6} md={5}>
-                            <Label className="text-left pl-0" xs={12} for="organization">ORGANIZATION</Label>
+                            <Label className="pl-0" xs={12} for="organization">ORGANIZATION</Label>
                             <Input id="organization" className="input p-3" onChange={e => setOrg(e.target.value)} required name="Organization"/>
                         </Col>
                     </FormGroup>
